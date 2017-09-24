@@ -1,0 +1,1 @@
+C:\Users\dekapur\Documents\Visual Studio 2017\Projects\MonitoringWatchdog\MonitoringWatchdog\obj\x64\Debug\MonitoringWatchdog.sfprojResolveAssemblyReference.cache
