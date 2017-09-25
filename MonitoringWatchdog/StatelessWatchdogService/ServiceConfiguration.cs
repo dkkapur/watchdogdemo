@@ -3,13 +3,11 @@
     using System;
     using System.Fabric;
     using System.Globalization;
-    using FabricMonSvc;
     using Microsoft.ServiceFabric.Monitoring.Interfaces;
 
     public class ServiceConfiguration : IServiceConfiguration
     {
         private const string HealthDataProducerSectionName = "HealthDataProducer";
-        private const string MdsHealthDataConsumerSectionName = "MdsHealthDataConsumer";
         private const string ConfigPackageName = "Config";
 
         private readonly ICodePackageActivationContext activationContext;
@@ -184,11 +182,6 @@
             this.deployedApplicationWhitelist = this.GetProducerConfigValue("ApplicationsThatReportDeployedApplicationHealth", defaultValue: string.Empty);
             this.servicePackageWhitelist = this.GetProducerConfigValue("ApplicationsThatReportServicePackageHealth", defaultValue: string.Empty);
             this.healthEventsWhitelist = this.GetProducerConfigValue("ApplicationsThatReportHealthEvents", defaultValue: string.Empty);
-        }
-
-        private TValue GetConsumerConfigValue<TValue>(string paramName, TValue defaultValue)
-        {
-            return this.GetConfigValue(MdsHealthDataConsumerSectionName, paramName, defaultValue);
         }
 
         private TValue GetProducerConfigValue<TValue>(string paramName, TValue defaultValue)

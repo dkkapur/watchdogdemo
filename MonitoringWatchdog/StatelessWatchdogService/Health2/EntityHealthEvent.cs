@@ -7,7 +7,7 @@
 namespace Microsoft.ServiceFabric.Monitoring.Health
 {
     using System.Fabric.Health;
-    using FabricMonSvc;
+    using StatelessWatchdogService;
 
     /// <summary>
     /// Extensible wrapper for System.Fabric.Health.HealthEvent to support testability.

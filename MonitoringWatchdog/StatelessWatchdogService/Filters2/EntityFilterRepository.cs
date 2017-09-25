@@ -10,7 +10,7 @@ namespace Microsoft.ServiceFabric.Monitoring.Filters
     using System.Collections.Generic;
     using System.Configuration;
     using System.Linq;
-    using FabricMonSvc;
+    using StatelessWatchdogService;
     using Microsoft.ServiceFabric.Monitoring.Interfaces;
 
     internal class EntityFilterRepository

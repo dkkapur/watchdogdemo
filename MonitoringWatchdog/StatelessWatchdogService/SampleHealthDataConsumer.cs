@@ -1,27 +1,25 @@
-﻿namespace MdsHealthDataConsumer
+﻿namespace StatelessWatchdogService
 {
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using System.Threading.Tasks;
-    using FabricMonSvc;
     using Microsoft.ServiceFabric.Monitoring.Health;
-    using StatelessWatchdogService;
 
     /// <summary>
-    /// Concrete implementation of HealthDataConsumer which uses <see cref="Microsoft.Cloud.InstrumentationFramework"/> to upload health data to MDM and MDS pipelines of Geneva.
+    /// Concrete implementation of HealthDataConsumer.
     /// </summary>
-    internal class IfxHealthDataConsumer : HealthDataConsumer
+    internal class SampleHealthDataConsumer : HealthDataConsumer
     {
         private readonly Task completedTask = Task.FromResult(0);
         
         [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1126:PrefixCallsCorrectly", Justification = "This rule breaks for nameof() operator.")]
-        public IfxHealthDataConsumer()
+        public SampleHealthDataConsumer()
         {
-
         }
 
         public override Task ProcessApplicationHealthAsync(ApplicationEntity application)
         {
+            ServiceEventSource.Current.Message($"process application: {application}, aggregatedHealth: {application.Health.AggregatedHealthState}");
+
             if (application.IsHealthEventReportingEnabled(
                 application.ApplicationName,
                 application.Health.AggregatedHealthState))
@@ -39,6 +37,8 @@
 
         public override Task ProcessClusterHealthAsync(ClusterEntity cluster)
         {
+            ServiceEventSource.Current.Message($"cluster: {cluster}, aggregatedHealth: {cluster.Health.AggregatedHealthState}");
+
             cluster.Health.HealthEvents
                 .ForEachHealthEvent(healthEvent =>
                 {
@@ -50,6 +50,7 @@
 
         public override Task ProcessDeployedApplicationHealthAsync(DeployedApplicationEntity deployedApplication)
         {
+            ServiceEventSource.Current.Message($"deployed application: {deployedApplication}, aggregatedHealth: {deployedApplication.Health.AggregatedHealthState}");
 
             if (deployedApplication.IsHealthEventReportingEnabled(
                 deployedApplication.ApplicationName,
@@ -67,6 +68,7 @@
 
         public override Task ProcessDeployedServicePackageHealthAsync(DeployedServicePackageEntity deployedServicePackage)
         {
+            ServiceEventSource.Current.Message($"deployed service package: {deployedServicePackage}, aggregatedHealth: {deployedServicePackage.Health.AggregatedHealthState}");
 
             if (deployedServicePackage.IsHealthEventReportingEnabled(
                 deployedServicePackage.ApplicationName,
@@ -84,6 +86,8 @@
 
         public override Task ProcessNodeHealthAsync(NodeEntity node)
         {
+            ServiceEventSource.Current.Message($"node: {node}, aggregatedHealth: {node.Health.AggregatedHealthState}");
+
             node.Health.HealthEvents
                 .ForEachHealthEvent(healthEvent =>
                 {
@@ -95,6 +99,7 @@
 
         public override Task ProcessPartitionHealthAsync(PartitionEntity partition)
         {
+            ServiceEventSource.Current.Message($"partition: {partition}, aggregatedHealth: {partition.Health.AggregatedHealthState}");
 
             if (partition.IsHealthEventReportingEnabled(
                 partition.ApplicationName,
@@ -112,6 +117,7 @@
 
         public override Task ProcessReplicaHealthAsync(ReplicaEntity replica)
         {
+            ServiceEventSource.Current.Message($"replica: {replica}, aggregatedHealth: {replica.Health.AggregatedHealthState}");
 
             if (replica.IsHealthEventReportingEnabled(
                 replica.ApplicationName,
@@ -129,6 +135,12 @@
 
         public override Task ProcessServiceHealthAsync(ServiceEntity service)
         {
+            ServiceEventSource.Current.Message($"service: {service}, aggregatedHealth: {service.Health.AggregatedHealthState}");
+            if (service.ServiceName == "SampleStatelessService1")
+            {
+                ServiceEventSource.Current.Message("Change bulb here");
+                // add bulb control from other proj
+            }
 
             if (service.IsHealthEventReportingEnabled(
                 service.ApplicationName,
@@ -138,11 +150,6 @@
                     .ForEachHealthEvent(healthEvent =>
                     {
                         ServiceEventSource.Current.Message($"service: {service}, health: {healthEvent}");
-                        if (service.ServiceName == "SampleStatelessService1")
-                        {
-                            ServiceEventSource.Current.Message("Change bulb here");
-                            // add bulb control from other proj
-                        }
                     });
             }
 

@@ -4,7 +4,7 @@
 //  </copyright>
 // ----------------------------------------------------------------------
 
-namespace FabricMonSvc
+namespace StatelessWatchdogService
 {
     using System.Diagnostics.Tracing;
     using System.Threading.Tasks;

@@ -8,7 +8,7 @@ namespace Microsoft.ServiceFabric.Monitoring.Filters
 {
     using System.Collections.Generic;
     using System.Fabric.Health;
-    using FabricMonSvc;
+    using StatelessWatchdogService;
     using Health;
 
     internal class EntityFilter

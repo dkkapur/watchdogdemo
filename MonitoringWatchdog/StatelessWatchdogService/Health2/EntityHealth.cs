@@ -9,7 +9,7 @@ namespace Microsoft.ServiceFabric.Monitoring.Health
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using FabricMonSvc;
+    using StatelessWatchdogService;
 
     /// <summary>
     /// Extensible wrapper for System.Fabric.Health.EntityHealth to support testability.

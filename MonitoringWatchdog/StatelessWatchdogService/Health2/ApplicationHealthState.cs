@@ -9,7 +9,7 @@ namespace Microsoft.ServiceFabric.Monitoring.Health
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Fabric.Health;
-    using FabricMonSvc;
+    using StatelessWatchdogService;
 
     /// <summary>
     /// Extensible wrapper for System.Fabric.Health.ApplicationHealthState to support testability.

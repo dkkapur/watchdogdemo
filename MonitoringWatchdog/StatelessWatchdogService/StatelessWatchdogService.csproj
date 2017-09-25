@@ -108,7 +108,7 @@
     <Compile Include="HealthDataProducer.cs" />
     <Compile Include="HealthDataService.cs" />
     <Compile Include="IEntity.cs" />
-    <Compile Include="IfxHealthDataConsumer.cs" />
+    <Compile Include="SampleHealthDataConsumer.cs" />
     <Compile Include="IServiceConfiguration.cs" />
     <Compile Include="MonitoringServiceEventSource.cs" />
     <Compile Include="NodeEntity.cs" />
