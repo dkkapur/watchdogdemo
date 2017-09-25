@@ -115,6 +115,7 @@
     <Compile Include="PartitionEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReplicaEntity.cs" />
+    <Compile Include="ServiceConfiguration.cs" />
     <Compile Include="ServiceEntity.cs" />
     <Compile Include="StatelessWatchdogService.cs" />
     <Compile Include="Program.cs" />

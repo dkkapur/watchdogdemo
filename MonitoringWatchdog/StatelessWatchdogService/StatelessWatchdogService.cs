@@ -21,10 +21,13 @@ namespace StatelessWatchdogService
 
         private static readonly TraceWriterWrapper TraceWriter = new TraceWriterWrapper();
         private HealthDataService healthDataService;
+        private StatelessServiceContext serviceContext;
 
         public StatelessWatchdogService(StatelessServiceContext context)
             : base(context)
-        { }
+        {
+            this.serviceContext = context;
+        }
 
         /// <summary>
         /// Optional override to create listeners (e.g., TCP, HTTP) for this service replica to handle client or user requests.
@@ -47,8 +50,7 @@ namespace StatelessWatchdogService
             if (this.healthDataService == null)
             {
                 // compose the HealthDataService instance with all the dependencies.
-                IServiceConfiguration config = null;
-                //var config = new ServiceConfiguration(this.serviceContext.CodePackageActivationContext, TraceWriter);
+                var config = new ServiceConfiguration(this.serviceContext.CodePackageActivationContext, TraceWriter);
                 var filterRepository = new EntityFilterRepository(config);
 
                 var healthClient = new FabricHealthClientWrapper(
